@@ -154,9 +154,9 @@ public sealed class ZadaniaLinq
     public IEnumerable<string> Zadanie08_UnikalneMiastaStudentow()
     {
         return DaneUczelni.Studenci
-            .GroupBy(s => s.Miasto)
-            .OrderBy(s => s.Key)
-            .Select(s => $"{s.Key}");
+            .OrderBy(s => s.Miasto)
+            .Select(s => $"{s.Miasto}")
+            .Distinct();
     }
 
     /// <summary>
