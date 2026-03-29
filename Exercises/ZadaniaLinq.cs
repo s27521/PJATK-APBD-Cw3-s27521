@@ -155,6 +155,7 @@ public sealed class ZadaniaLinq
     {
         return DaneUczelni.Studenci
             .GroupBy(s => s.Miasto)
+            .OrderBy(s => s.Key)
             .Select(s => $"{s.Key}");
     }
 
