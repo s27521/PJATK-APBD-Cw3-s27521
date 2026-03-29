@@ -216,12 +216,12 @@ public sealed class ZadaniaLinq
                 zapis => zapis.StudentId,
                 (student, zapis) => new
                 {
-                    sImie = student.Imie,
-                    sNazwisko = student.Nazwisko,
-                    zDataZapisu = zapis.DataZapisu
+                    Imie = student.Imie,
+                    Nazwisko = student.Nazwisko,
+                    DataZapisu = zapis.DataZapisu
                 }
             )
-            .Select(j => $"{j.sImie} {j.sNazwisko} {j.zDataZapisu}");
+            .Select(j => $"{j.Imie} {j.Nazwisko} {j.DataZapisu}");
     }
 
     /// <summary>
