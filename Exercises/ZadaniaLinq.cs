@@ -73,7 +73,9 @@ public sealed class ZadaniaLinq
                 .Where(s => s.Equals(safe))
                 .Select(s => $"{s.Nazwa} {s.DataStartu}");
         }
-        throw new Exception("Przedmiot Analytics nie istnieje.");
+        var message = new List<string>();
+        message.Add("Pierwszy przedmiot kategorii Analytics nie istnieje.");
+        return message;
     }
 
     /// <summary>
