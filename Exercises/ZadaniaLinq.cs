@@ -153,7 +153,9 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie08_UnikalneMiastaStudentow()
     {
-        throw Niezaimplementowano(nameof(Zadanie08_UnikalneMiastaStudentow));
+        return DaneUczelni.Studenci
+            .GroupBy(s => s.Miasto)
+            .Select(s => $"{s.Key}");
     }
 
     /// <summary>
