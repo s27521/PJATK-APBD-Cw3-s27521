@@ -364,7 +364,7 @@ public sealed class ZadaniaLinq
                 {
                     Imie = s.Imie,
                     Nazwisko = s.Nazwisko,
-                    Max = e.MaxBy(z => z.OcenaKoncowa).OcenaKoncowa
+                    Max = e.Max(zapis => zapis.OcenaKoncowa)
                 })
             .Select(e => $"{e.Imie} {e.Nazwisko} {e.Max}");
     }
