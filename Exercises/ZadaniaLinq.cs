@@ -414,7 +414,18 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Wyzwanie02_PrzedmiotyStartujaceWKwietniuBezOcenKoncowych()
     {
-        throw Niezaimplementowano(nameof(Wyzwanie02_PrzedmiotyStartujaceWKwietniuBezOcenKoncowych));
+        return DaneUczelni.Przedmioty
+            .Where(p => p.DataStartu is { Month: 4, Year: 2026 })
+            .GroupJoin(DaneUczelni.Zapisy,
+                p => p.Id,
+                z => z.PrzedmiotId,
+                (p, zMatch) => new
+                {
+                    Nazwa = p.Nazwa,
+                    Zapisy = zMatch
+                })
+            .Where(e => e.Zapisy.All(z => z.OcenaKoncowa is not null))
+            .Select(e => $"{e.Nazwa}");
     }
 
     /// <summary>
