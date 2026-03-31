@@ -443,7 +443,32 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Wyzwanie03_ProwadzacyISredniaOcenNaIchPrzedmiotach()
     {
-        throw Niezaimplementowano(nameof(Wyzwanie03_ProwadzacyISredniaOcenNaIchPrzedmiotach));
+        return DaneUczelni.Prowadzacy
+            .Join(DaneUczelni.Przedmioty,
+                pro =>  pro.Id,
+                prz => prz.ProwadzacyId,
+                (pro, prz) => new
+                {
+                    Prowadzacy = pro,
+                    Przedmiot = prz
+                })
+            .Join(DaneUczelni.Zapisy,
+                join => join.Przedmiot.Id,
+                z => z.PrzedmiotId,
+                (join, z) => new
+                {
+                    Prowadzacy = join.Prowadzacy,
+                    Zapis = z
+                })
+            .Where(e => e.Zapis.OcenaKoncowa is not null)
+            .GroupBy(e => e.Prowadzacy,
+                (p, zMatch) => new
+                {
+                    Imie = p.Imie,
+                    Nazwisko = p.Nazwisko,
+                    Avg = zMatch.Average(e => e.Zapis.OcenaKoncowa)
+                })
+            .Select(e => $"{e.Imie} {e.Nazwisko} {e.Avg}");
     }
 
     /// <summary>
